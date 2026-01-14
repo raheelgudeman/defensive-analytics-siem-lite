@@ -1,21 +1,16 @@
+from pathlib import Path
 import pandas as pd
 
-LOG_FILE = "../logs/sample_auth_logs.csv"
-ALERT_OUTPUT = "../output/alerts.csv"
+BASE_DIR = Path(__file__).resolve().parent.parent
+LOG_FILE = BASE_DIR / "logs" / "sample_auth_logs.csv"
+ALERT_OUTPUT = BASE_DIR / "output" / "alerts.csv"
 
-FAILED_THRESHOLD = 5  # number of failed logins to trigger an alert
+FAILED_THRESHOLD = 5
 
+def load_logs(file_path: Path) -> pd.DataFrame:
+    return pd.read_csv(file_path)
 
-def load_logs(file_path):
-    df = pd.read_csv(file_path)
-    return df
-
-
-def detect_bruteforce(df, threshold):
-    """
-    Detect brute-force attempts by counting failed logins per source_ip.
-    Returns a DataFrame of suspicious IPs that meet or exceed the threshold.
-    """
+def detect_bruteforce(df: pd.DataFrame, threshold: int) -> pd.DataFrame:
     failed = df[df["status"] == "failure"]
 
     counts = (
@@ -27,8 +22,7 @@ def detect_bruteforce(df, threshold):
     suspicious = counts[counts["failed_count"] >= threshold]
     return suspicious
 
-
-def main():
+def main() -> None:
     logs = load_logs(LOG_FILE)
     alerts = detect_bruteforce(logs, FAILED_THRESHOLD)
 
@@ -38,9 +32,9 @@ def main():
         print("Brute-force alerts generated:")
         print(alerts)
 
+        ALERT_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
         alerts.to_csv(ALERT_OUTPUT, index=False)
         print(f"Saved alerts to: {ALERT_OUTPUT}")
-
 
 if __name__ == "__main__":
     main()
