@@ -5,7 +5,7 @@
 **defensive-analytics-siem-lite** is a beginner-friendly cybersecurity project that demonstrates the core concepts behind a **Security Information and Event Management (SIEM)** system.  
 The project focuses on **defensive cyber operations**, emphasizing log analysis, detection logic, alerting, and reporting.
 
-This repository is designed to help learners and aspiring cyber professionals understand how security events are collected, analyzed, and transformed into actionable alerts in a SOC environment.
+This repository helps learners and aspiring cyber professionals understand how security events are collected, analyzed, and transformed into actionable alerts in a SOC environment.
 
 ---
 
@@ -64,5 +64,18 @@ Implements basic but realistic detection rules:
 
 ---
 
-## Planned Project Structure
+## Technologies Used
+- Python 3
+- Pandas
+- CSV and JSON data handling
+- Command-line execution
+
+---
+
+## How to Run (Local)
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/raheelgudeman/defensive-analytics-siem-lite.git
+cd defensive-analytics-siem-lite
 
