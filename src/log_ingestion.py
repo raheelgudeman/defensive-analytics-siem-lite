@@ -1,15 +1,13 @@
+from pathlib import Path
 import pandas as pd
 
-LOG_FILE = "../logs/sample_auth_logs.csv"
+BASE_DIR = Path(__file__).resolve().parent.parent
+LOG_FILE = BASE_DIR / "logs" / "sample_auth_logs.csv"
 
-def load_logs(file_path):
-    """
-    Load authentication logs from CSV file.
-    """
-    df = pd.read_csv(file_path)
-    return df
+def load_logs(file_path: Path) -> pd.DataFrame:
+    return pd.read_csv(file_path)
 
-def main():
+def main() -> None:
     logs = load_logs(LOG_FILE)
 
     print("Log Ingestion Successful")
