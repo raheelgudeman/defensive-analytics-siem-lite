@@ -59,8 +59,8 @@ Implements basic but realistic detection rules:
 - Produces summary reports including:
   - Total events processed
   - Alerts generated
-  - Most frequent source IPs
-  - Targeted user accounts
+  - Successful vs failed login counts
+  - Top source IPs by event volume
 
 ---
 
@@ -68,14 +68,36 @@ Implements basic but realistic detection rules:
 - Python 3
 - Pandas
 - CSV and JSON data handling
-- Command-line execution
+- Command-line execution (macOS Terminal)  
+- Git & GitHub (SSH authentication)  
+
+---
+## Project Structure
+
+## How the SIEM-lite Workflow Works
+
+1. **Log Ingestion**  
+   Authentication logs are loaded from a CSV file and parsed into structured events.
+
+2. **Event Analysis**  
+   Login attempts are analyzed to distinguish successful and failed authentications.
+
+3. **Detection Logic**  
+   Repeated failed login attempts from the same source IP are evaluated to detect potential brute-force behavior.
+
+4. **Alert Generation**  
+   Suspicious activity is written to `alerts.csv` for analyst review.
+
+5. **Reporting**  
+   A SOC-style summary report is generated in `report.txt`, providing visibility into activity trends and suspicious sources.
 
 ---
 
 ## How to Run (Local)
 
-### 1. Clone the repository
+### 1. Clone the repository (SSH)
 ```bash
-git clone https://github.com/raheelgudeman/defensive-analytics-siem-lite.git
+git clone git@github.com:raheelgudeman/defensive-analytics-siem-lite.git
 cd defensive-analytics-siem-lite
+
 
